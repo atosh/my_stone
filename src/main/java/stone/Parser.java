@@ -5,6 +5,7 @@ package stone;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.HashSet;
 import java.util.List;
 
 import stone.ast.ASTLeaf;
@@ -13,13 +14,14 @@ import stone.ast.ASTNode;
 
 /**
  * @author toshi
- *
+ * 
  */
 public class Parser {
 	public static final String kFactoryName = "create";
 
 	public static abstract class Factory {
 		protected abstract ASTNode make0(Object arg) throws Exception;
+
 		/**
 		 * @param arg
 		 * @return
@@ -45,17 +47,19 @@ public class Parser {
 				return null;
 			}
 			try {
-				final Method method = type.getMethod(kFactoryName, new Class<?>[]{argType});
+				final Method method = type.getMethod(kFactoryName,
+						new Class<?>[] { argType });
 				return new Factory() {
 					protected ASTNode make0(Object args) throws Exception {
-						return (ASTNode)method.invoke(null, args);
+						return (ASTNode) method.invoke(null, args);
 					}
 				};
 			} catch (NoSuchMethodException e) {
 			} catch (SecurityException e) {
 			}
 			try {
-				final Constructor<? extends ASTNode> constructor = type.getConstructor(argType);
+				final Constructor<? extends ASTNode> constructor = type
+						.getConstructor(argType);
 				return new Factory() {
 					protected ASTNode make0(Object args) throws Exception {
 						return constructor.newInstance(args);
@@ -72,14 +76,15 @@ public class Parser {
 
 	protected static abstract class Element {
 		protected abstract void parse(Lexer lexer, List<ASTNode> res)
-			throws ParseException;
+				throws ParseException;
+
 		protected abstract boolean match(Lexer lexer) throws ParseException;
 	}
-	
+
 	protected static class Tree extends Element {
 
 		private Parser _parser;
-		
+
 		/**
 		 * 
 		 */
@@ -87,7 +92,9 @@ public class Parser {
 			_parser = parser;
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see stone.Parser.Element#parse(stone.Lexer, java.util.List)
 		 */
 		@Override
@@ -96,16 +103,18 @@ public class Parser {
 			res.add(_parser.parse(lexer));
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see stone.Parser.Element#match(stone.Lexer)
 		 */
 		@Override
 		protected boolean match(Lexer lexer) throws ParseException {
 			return _parser.match(lexer);
 		}
-		
+
 	}
-	
+
 	protected static class OrTree extends Element {
 
 		private Parser[] _parsers;
@@ -116,7 +125,10 @@ public class Parser {
 		protected OrTree(Parser[] parsers) {
 			_parsers = parsers;
 		}
-		/* (non-Javadoc)
+
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see stone.Parser.Element#parse(stone.Lexer, java.util.List)
 		 */
 		@Override
@@ -130,14 +142,16 @@ public class Parser {
 			}
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see stone.Parser.Element#match(stone.Lexer)
 		 */
 		@Override
 		protected boolean match(Lexer lexer) throws ParseException {
 			return choose(lexer) != null;
 		}
-		
+
 		/**
 		 * @param lexer
 		 * @return
@@ -150,7 +164,7 @@ public class Parser {
 			}
 			return null;
 		}
-		
+
 		/**
 		 * 
 		 * @param parser
@@ -162,7 +176,7 @@ public class Parser {
 			_parsers = newParsers;
 		}
 	}
-	
+
 	protected static class Repeat extends Element {
 
 		private Parser _parser;
@@ -175,7 +189,10 @@ public class Parser {
 			_parser = parser;
 			_onlyOnce = once;
 		}
-		/* (non-Javadoc)
+
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see stone.Parser.Element#parse(stone.Lexer, java.util.List)
 		 */
 		@Override
@@ -190,33 +207,36 @@ public class Parser {
 					break;
 				}
 			}
-			
+
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see stone.Parser.Element#match(stone.Lexer)
 		 */
 		@Override
 		protected boolean match(Lexer lexer) throws ParseException {
 			return _parser.match(lexer);
 		}
-		
+
 	}
-	
-	protected static abstract class AToken extends Element {
+
+	protected static abstract class AbstractToken extends Element {
 		private Factory _factory;
 
 		/**
 		 * 
 		 */
-		protected AToken(Class<? extends ASTLeaf> type) {
+		protected AbstractToken(Class<? extends ASTLeaf> type) {
 			if (type == null) {
 				type = ASTLeaf.class;
 			}
 			_factory = Factory.get(type, Token.class);
 		}
-		
-		protected void parse(Lexer lexer, List<ASTNode> res) throws ParseException {
+
+		protected void parse(Lexer lexer, List<ASTNode> res)
+				throws ParseException {
 			Token token = lexer.read();
 			if (test(token)) {
 				ASTNode leaf = _factory.make(token);
@@ -225,14 +245,107 @@ public class Parser {
 				throw new ParseException(token);
 			}
 		}
-		
+
 		protected boolean match(Lexer lexer) throws ParseException {
 			return test(lexer.peek(0));
 		}
 
 		protected abstract boolean test(Token token);
 	}
+
+	protected static class IdToken extends AbstractToken {
+
+		private HashSet<String> _reserved;
+
+		/**
+		 * 
+		 */
+		protected IdToken(Class<? extends ASTLeaf> type, HashSet<String> reserved) {
+			super(type);
+			_reserved = reserved != null ? reserved : new HashSet<String>();
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see stone.Parser.AbstractToken#test(stone.Token)
+		 */
+		@Override
+		protected boolean test(Token token) {
+			return token.isIdentifier() && !_reserved.contains(token.getText());
+		}
+
+	}
 	
+	protected static class NumberToken extends AbstractToken {
+		/**
+		 * 
+		 * @param type
+		 */
+		protected NumberToken(Class<? extends ASTLeaf> type) {
+			super(type);
+		}
+		
+		/* (non-Javadoc)
+		 * @see stone.Parser.AbstractToken#test(stone.Token)
+		 */
+		@Override
+		protected boolean test(Token token) {
+			return token.isNumber();
+		}
+		
+	}
+	
+	protected static class StringToken extends AbstractToken {
+		/**
+		 * 
+		 * @param type
+		 */
+		protected StringToken(Class<? extends ASTLeaf> type) {
+			super(type);
+		}
+
+		/* (non-Javadoc)
+		 * @see stone.Parser.AbstractToken#test(stone.Token)
+		 */
+		@Override
+		protected boolean test(Token token) {
+			return token.isString();
+		}
+		
+	}
+	
+	protected static class Leaf extends Element {
+		private String[] _tokens;
+
+		/**
+		 * 
+		 * @param tokens
+		 */
+		protected Leaf(String[] tokens) {
+			_tokens = tokens;
+		}
+
+		/* (non-Javadoc)
+		 * @see stone.Parser.Element#parse(stone.Lexer, java.util.List)
+		 */
+		@Override
+		protected void parse(Lexer lexer, List<ASTNode> res)
+				throws ParseException {
+			// TODO Auto-generated method stub
+			
+		}
+
+		/* (non-Javadoc)
+		 * @see stone.Parser.Element#match(stone.Lexer)
+		 */
+		@Override
+		protected boolean match(Lexer lexer) throws ParseException {
+			// TODO Auto-generated method stub
+			return false;
+		}
+	}
+
 	/**
 	 * 
 	 */

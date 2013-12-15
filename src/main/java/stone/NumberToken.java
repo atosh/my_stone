@@ -7,7 +7,7 @@ package stone;
  * @author toshi
  * 
  */
-public class NumToken extends Token {
+public class NumberToken extends Token {
 
 	private int _value;
 
@@ -15,7 +15,7 @@ public class NumToken extends Token {
 	 * @param lineNumber
 	 * @param parseInt
 	 */
-	public NumToken(int lineNumber, int value) {
+	public NumberToken(int lineNumber, int value) {
 		super(lineNumber);
 		_value = value;
 	}
@@ -23,11 +23,11 @@ public class NumToken extends Token {
 	public boolean isNumber() {
 		return true;
 	}
-	
+
 	public String getText() {
 		return Integer.toString(_value);
 	}
-	
+
 	public int getNmber() {
 		return _value;
 	}

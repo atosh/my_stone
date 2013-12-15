@@ -5,7 +5,7 @@ package stone;
 
 /**
  * @author toshi
- *
+ * 
  */
 public class IdToken extends Token {
 
@@ -19,11 +19,11 @@ public class IdToken extends Token {
 		super(lineNumber);
 		_text = id;
 	}
-	
+
 	public boolean isIdentifier() {
 		return true;
 	}
-	
+
 	public String getText() {
 		return _text;
 	}

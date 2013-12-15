@@ -5,7 +5,7 @@ package stone;
 
 /**
  * @author toshi
- *
+ * 
  */
 public class StoneException extends RuntimeException {
 	/**

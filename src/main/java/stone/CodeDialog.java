@@ -29,7 +29,7 @@ public class CodeDialog extends Reader {
 	 * 
 	 * @see java.io.Reader#close()
 	 */
-//	@Override
+	// @Override
 	public void close() throws IOException {
 	}
 
@@ -38,7 +38,7 @@ public class CodeDialog extends Reader {
 	 * 
 	 * @see java.io.Reader#read(char[], int, int)
 	 */
-//	@Override
+	// @Override
 	public int read(char[] cbuf, int off, int len) throws IOException {
 		if (buffer == null) {
 			String in = showDialog();
@@ -79,7 +79,7 @@ public class CodeDialog extends Reader {
 	protected void print(String s) {
 		System.out.println(s);
 	}
-	
+
 	public static Reader file() throws FileNotFoundException {
 		JFileChooser chooser = new JFileChooser();
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {

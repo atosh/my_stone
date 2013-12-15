@@ -7,7 +7,7 @@ import java.io.IOException;
 
 /**
  * @author toshi
- *
+ * 
  */
 public class ParseException extends Exception {
 	/**
@@ -18,7 +18,7 @@ public class ParseException extends Exception {
 	public ParseException(Token token) {
 		this("", token);
 	}
-	
+
 	public ParseException(String msg, Token token) {
 		super("syntax error around " + location(token) + ". " + msg);
 	}
@@ -27,14 +27,15 @@ public class ParseException extends Exception {
 		if (token == Token.kEOF) {
 			return "the last line";
 		} else {
-			return "\"" + token.getText() + "\" at line " + token.getLineNumber();
+			return "\"" + token.getText() + "\" at line "
+					+ token.getLineNumber();
 		}
 	}
-	
+
 	public ParseException(IOException e) {
 		super(e);
 	}
-	
+
 	public ParseException(String msg) {
 		super(msg);
 	}

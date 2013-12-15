@@ -37,7 +37,7 @@ public class Lexer {
 			return Token.kEOF;
 		}
 	}
-	
+
 	public Token peek(int i) throws ParseException {
 		if (fillQueue(i)) {
 			return _queue.get(i);
@@ -45,7 +45,7 @@ public class Lexer {
 			return Token.kEOF;
 		}
 	}
-	
+
 	private boolean fillQueue(int i) throws ParseException {
 		while (i >= _queue.size()) {
 			if (_hasMore) {
@@ -95,9 +95,9 @@ public class Lexer {
 			if (matcher.group(2) == null) { // if not a comment
 				Token token;
 				if (matcher.group(3) != null) {
-					token = new NumToken(lineNo, Integer.parseInt(m));
+					token = new NumberToken(lineNo, Integer.parseInt(m));
 				} else if (matcher.group(4) != null) {
-					token = new StrToken(lineNo, toStringLiteral(m));
+					token = new StringToken(lineNo, toStringLiteral(m));
 				} else {
 					token = new IdToken(lineNo, m);
 				}

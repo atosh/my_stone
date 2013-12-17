@@ -1,17 +1,12 @@
-/**
- * 
- */
 package stone.ast;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import stone.Token;
+import stone.env.Environment;
+import stone.lexer.StoneException;
+import stone.lexer.Token;
 
-/**
- * @author toshi
- * 
- */
 public class ASTLeaf extends ASTNode {
 	private static ArrayList<ASTNode> _empty = new ArrayList<ASTNode>();
 	protected Token _token;
@@ -47,4 +42,10 @@ public class ASTLeaf extends ASTNode {
 	public Token token() {
 		return _token;
 	}
+
+	@Override
+	public Object evaluate(Environment environment) {
+		throw new StoneException("cannot eval: " + toString(), this);
+	}
+
 }

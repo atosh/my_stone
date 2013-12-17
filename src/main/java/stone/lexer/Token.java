@@ -1,22 +1,14 @@
-/**
- * 
- */
-package stone;
+package stone.lexer;
 
-/**
- * @author toshi
- * 
- */
 public abstract class Token {
 
 	public static final Token kEOF = new Token(-1) {
 	}; // end of file
+
 	public static final String kEOL = "\\n"; // end of line
+
 	private int _lineNumber;
 
-	/**
-	 * 
-	 */
 	public Token(int lineNumber) {
 		_lineNumber = lineNumber;
 	}
@@ -41,9 +33,6 @@ public abstract class Token {
 		throw new StoneException("not number token.");
 	}
 
-	/**
-	 * @return
-	 */
 	public String getText() {
 		return "";
 	}

@@ -1,29 +1,22 @@
-/**
- * 
- */
-package stone;
+package stone.lexer;
 
-/**
- * @author toshi
- * 
- */
 public class StringToken extends Token {
 
 	private String _literal;
 
-	/**
-	 * @param lineNumber
-	 */
 	public StringToken(int lineNumber, String str) {
 		super(lineNumber);
 		_literal = str;
 	}
 
+	@Override
 	public boolean isString() {
 		return true;
 	}
 
+	@Override
 	public String getText() {
 		return _literal;
 	}
+
 }

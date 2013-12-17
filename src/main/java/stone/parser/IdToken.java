@@ -1,9 +1,9 @@
-package stone.ast.parser;
+package stone.parser;
 
 import java.util.HashSet;
 
-import stone.Token;
 import stone.ast.ASTLeaf;
+import stone.lexer.Token;
 
 public class IdToken extends AbstractToken {
 

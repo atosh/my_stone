@@ -1,30 +1,22 @@
-/**
- * 
- */
-package stone;
+package stone.lexer;
 
-/**
- * @author toshi
- * 
- */
 public class IdToken extends Token {
 
 	private String _text;
 
-	/**
-	 * @param lineNumber
-	 * @param id
-	 */
 	public IdToken(int lineNumber, String id) {
 		super(lineNumber);
 		_text = id;
 	}
 
+	@Override
 	public boolean isIdentifier() {
 		return true;
 	}
 
+	@Override
 	public String getText() {
 		return _text;
 	}
+
 }

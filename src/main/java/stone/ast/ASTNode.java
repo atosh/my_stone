@@ -1,15 +1,11 @@
-/**
- * 
- */
 package stone.ast;
 
 import java.util.Iterator;
 
-/**
- * @author toshi
- * 
- */
+import stone.env.Environment;
+
 public abstract class ASTNode implements Iterable<ASTNode> {
+
 	public abstract ASTNode child(int i);
 
 	public abstract int numChildren();
@@ -21,4 +17,7 @@ public abstract class ASTNode implements Iterable<ASTNode> {
 	public Iterator<ASTNode> iterator() {
 		return children();
 	}
+
+	public abstract Object evaluate(Environment environment);
+
 }

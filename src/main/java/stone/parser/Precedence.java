@@ -1,4 +1,4 @@
-package stone.ast.parser;
+package stone.parser;
 
 public class Precedence {
 	int value;

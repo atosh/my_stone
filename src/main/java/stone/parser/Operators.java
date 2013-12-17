@@ -1,4 +1,4 @@
-package stone.ast.parser;
+package stone.parser;
 
 import java.util.HashMap;
 

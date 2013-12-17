@@ -1,18 +1,10 @@
-/**
- * 
- */
 package stone.ast;
 
-import stone.Token;
+import stone.env.Environment;
+import stone.lexer.Token;
 
-/**
- * @author toshi
- * 
- */
 public class NumberLiteral extends ASTLeaf {
-	/**
-	 * 
-	 */
+
 	public NumberLiteral(Token token) {
 		super(token);
 	}
@@ -20,4 +12,10 @@ public class NumberLiteral extends ASTLeaf {
 	public int value() {
 		return token().getNumber();
 	}
+
+	@Override
+	public Object evaluate(Environment environment) {
+		return value();
+	}
+
 }

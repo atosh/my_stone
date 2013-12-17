@@ -1,16 +1,13 @@
-/**
- * 
- */
 package stone.ast;
 
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * @author toshi
- * 
- */
+import stone.env.Environment;
+import stone.lexer.StoneException;
+
 public class ASTList extends ASTNode {
+
 	protected List<ASTNode> _children;
 
 	public ASTList(List<ASTNode> children) {
@@ -53,6 +50,11 @@ public class ASTList extends ASTNode {
 			builder.append(node.toString());
 		}
 		return builder.append(')').toString();
+	}
+
+	@Override
+	public Object evaluate(Environment environment) {
+		throw new StoneException("cannot eval: " + toString(), this);
 	}
 
 }

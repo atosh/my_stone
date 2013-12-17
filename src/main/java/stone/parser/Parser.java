@@ -1,16 +1,16 @@
 /**
  * 
  */
-package stone.ast.parser;
+package stone.parser;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import stone.Lexer;
-import stone.ParseException;
 import stone.ast.ASTLeaf;
 import stone.ast.ASTNode;
+import stone.lexer.Lexer;
+import stone.lexer.ParseException;
 
 public class Parser {
 	public static final String kFactoryName = "create";

@@ -1,12 +1,12 @@
-package stone.ast.parser;
+package stone.parser;
 
 import java.util.List;
 
-import stone.Lexer;
-import stone.ParseException;
-import stone.Token;
 import stone.ast.ASTLeaf;
 import stone.ast.ASTNode;
+import stone.lexer.Lexer;
+import stone.lexer.ParseException;
+import stone.lexer.Token;
 
 public abstract class AbstractToken extends Element {
 	private Factory _factory;

@@ -1,11 +1,11 @@
-package stone.ast.parser;
+package stone.parser;
 
 import java.util.List;
 
-import stone.Lexer;
-import stone.ParseException;
 import stone.ast.ASTList;
 import stone.ast.ASTNode;
+import stone.lexer.Lexer;
+import stone.lexer.ParseException;
 
 public class Repeat extends Element {
 

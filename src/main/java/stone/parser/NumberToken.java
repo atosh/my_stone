@@ -1,7 +1,7 @@
-package stone.ast.parser;
+package stone.parser;
 
-import stone.Token;
 import stone.ast.ASTLeaf;
+import stone.lexer.Token;
 
 public class NumberToken extends AbstractToken {
 

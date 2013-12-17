@@ -1,34 +1,26 @@
-/**
- * 
- */
-package stone;
+package stone.lexer;
 
-/**
- * @author toshi
- * 
- */
 public class NumberToken extends Token {
 
 	private int _value;
 
-	/**
-	 * @param lineNumber
-	 * @param parseInt
-	 */
 	public NumberToken(int lineNumber, int value) {
 		super(lineNumber);
 		_value = value;
 	}
 
+	@Override
 	public boolean isNumber() {
 		return true;
 	}
 
+	@Override
 	public String getText() {
 		return Integer.toString(_value);
 	}
 
-	public int getNmber() {
+	@Override
+	public int getNumber() {
 		return _value;
 	}
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package stone;
+package stone.lexer;
 
 import java.io.IOException;
 import java.io.LineNumberReader;

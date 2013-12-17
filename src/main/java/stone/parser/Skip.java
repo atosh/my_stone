@@ -1,9 +1,9 @@
-package stone.ast.parser;
+package stone.parser;
 
 import java.util.List;
 
-import stone.Token;
 import stone.ast.ASTNode;
+import stone.lexer.Token;
 
 public class Skip extends Leaf {
 

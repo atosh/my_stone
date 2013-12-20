@@ -9,10 +9,12 @@ import stone.ast.ASTNode;
 import stone.ast.NullStatement;
 import stone.env.BasicEnvironment;
 import stone.env.Environment;
+import stone.env.NestedEnvironment;
 import stone.lexer.Lexer;
 import stone.lexer.ParseException;
 import stone.lexer.Token;
 import stone.parser.BasicParser;
+import stone.parser.FuncParser;
 
 public class StoneTest {
 
@@ -50,4 +52,17 @@ public class StoneTest {
 		}
 	}
 
+	@Test
+	public void testFuncInterpreter() throws Exception {
+		FuncParser parser = new FuncParser();
+		Environment environment = new NestedEnvironment();
+		Lexer lexer = new Lexer(_reader);
+		while (lexer.peek(0) != Token.kEOF) {
+			ASTNode node = parser.parse(lexer);
+			if (!(node instanceof NullStatement)) {
+				Object result = node.evaluate(environment);
+				System.out.println("=> " + result);
+			}
+		}
+	}
 }

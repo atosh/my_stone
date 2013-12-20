@@ -18,7 +18,7 @@ public class NestedEnvironment implements Environment {
 	public void setOuter(Environment environment) {
 		_outer = environment;
 	}
-	
+
 	public void putNew(String name, Object value) {
 		_values.put(name, value);
 	}

@@ -2,6 +2,8 @@ package stone.ast;
 
 import java.util.List;
 
+import stone.env.Environment;
+
 public class ParameterList extends ASTList {
 
 	public ParameterList(List<ASTNode> children) {
@@ -14,6 +16,10 @@ public class ParameterList extends ASTList {
 
 	public int size() {
 		return numChildren();
+	}
+
+	public void evaluate(Environment environment, int index, Object value) {
+		environment.putNew(name(index), value);
 	}
 
 }

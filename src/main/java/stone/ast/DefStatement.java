@@ -2,6 +2,9 @@ package stone.ast;
 
 import java.util.List;
 
+import stone.env.Environment;
+import stone.env.Function;
+
 public class DefStatement extends ASTList {
 
 	public DefStatement(List<ASTNode> children) {
@@ -12,7 +15,7 @@ public class DefStatement extends ASTList {
 		return ((ASTLeaf) child(0)).token().getText();
 	}
 
-	public ParameterList paramaters() {
+	public ParameterList parameters() {
 		return (ParameterList) child(1);
 	}
 
@@ -21,6 +24,11 @@ public class DefStatement extends ASTList {
 	}
 
 	public String toString() {
-		return "(def " + name() + " " + paramaters() + " " + body() + ")";
+		return "(def " + name() + " " + parameters() + " " + body() + ")";
+	}
+	
+	public Object evaluate(Environment environment) {
+		environment.putNew(name(), new Function(parameters(), body(), environment));
+		return name();
 	}
 }

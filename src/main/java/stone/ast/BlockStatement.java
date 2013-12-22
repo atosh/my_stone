@@ -2,7 +2,7 @@ package stone.ast;
 
 import java.util.List;
 
-import stone.env.Environment;
+import stone.env.Env;
 
 public class BlockStatement extends ASTList {
 
@@ -11,11 +11,11 @@ public class BlockStatement extends ASTList {
 	}
 
 	@Override
-	public Object evaluate(Environment environment) {
+	public Object evaluate(Env env) {
 		Object result = 0;
 		for (ASTNode node : this) {
 			if (!(node instanceof NullStatement)) {
-				result = node.evaluate(environment);
+				result = node.evaluate(env);
 			}
 		}
 		return result;

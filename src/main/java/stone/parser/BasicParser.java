@@ -13,25 +13,25 @@ public class BasicParser {
 
 	HashSet<String> _reserved = new HashSet<String>();
 	Operators _operators = new Operators();
-	Parser _expression0 = rule();
-	Parser _primary = rule(PrimaryExpression.class).or(
-			rule().sep("(").ast(_expression0).sep(")"),
+	Parser _expr0 = rule();
+	Parser _primary = rule(PrimaryExpr.class).or(
+			rule().sep("(").ast(_expr0).sep(")"),
 			rule().number(NumberLiteral.class),
 			rule().identifier(Name.class, _reserved),
 			rule().string(StringLiteral.class));
 	Parser _factor = rule().or(
-			rule(NegetiveExpression.class).sep("-").ast(_primary), _primary);
-	Parser _expression = _expression0.expression(BinaryExpression.class,
+			rule(NegativeExpr.class).sep("-").ast(_primary), _primary);
+	Parser _expr = _expr0.expr(BinaryExpr.class,
 			_factor, _operators);
 
 	Parser _statement0 = rule();
 	Parser _block = rule(BlockStatement.class).sep("{").option(_statement0)
 			.repeat(rule().sep(";", Token.kEOL).option(_statement0)).sep("}");
-	Parser _simple = rule(PrimaryExpression.class).ast(_expression);
+	Parser _simple = rule(PrimaryExpr.class).ast(_expr);
 	Parser _statement = _statement0.or(
-			rule(IfStatement.class).sep("if").ast(_expression).ast(_block)
+			rule(IfStatement.class).sep("if").ast(_expr).ast(_block)
 					.option(rule().sep("else").ast(_block)),
-			rule(WhileStatement.class).sep("while").ast(_expression)
+			rule(WhileStatement.class).sep("while").ast(_expr)
 					.ast(_block), _simple);
 
 	Parser _program = rule().or(_statement, rule(NullStatement.class))

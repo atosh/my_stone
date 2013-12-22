@@ -2,9 +2,9 @@ package stone.ast;
 
 import java.util.List;
 
-import stone.env.Environment;
-import stone.env.Function;
+import stone.env.Env;
 import stone.lexer.StoneException;
+import stone.parser.Function;
 
 public class Arguments extends Postfix {
 
@@ -16,7 +16,7 @@ public class Arguments extends Postfix {
 		return numChildren();
 	}
 
-	public Object evaluate(Environment callerEnvironment, Object value) {
+	public Object evaluate(Env callerEnv, Object value) {
 		if (!(value instanceof Function)) {
 			throw new StoneException("bad function", this);
 		}
@@ -25,12 +25,12 @@ public class Arguments extends Postfix {
 		if (size() != parameters.size()) {
 			throw new StoneException("bad number of arguments", this);
 		}
-		Environment newEnvironment = function.makeEnvironment();
+		Env newEnv = function.makeEnv();
 		int num = 0;
 		for (ASTNode node : this) {
-			parameters.evaluate(newEnvironment, num++,
-					node.evaluate(callerEnvironment));
+			parameters.evaluate(newEnv, num++,
+					node.evaluate(callerEnv));
 		}
-		return function.body().evaluate(newEnvironment);
+		return function.body().evaluate(newEnv);
 	}
 }

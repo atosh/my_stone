@@ -1,6 +1,6 @@
 package stone.ast;
 
-import stone.env.Environment;
+import stone.env.Env;
 import stone.lexer.Token;
 
 public class StringLiteral extends ASTLeaf {
@@ -14,7 +14,7 @@ public class StringLiteral extends ASTLeaf {
 	}
 
 	@Override
-	public Object evaluate(Environment environment) {
+	public Object evaluate(Env env) {
 		return value();
 	}
 

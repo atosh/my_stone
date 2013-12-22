@@ -13,8 +13,8 @@ public class FuncParser extends BasicParser {
 	Parser _paramList = rule().sep("(").maybe(_params).sep(")");
 	Parser _def = rule(DefStatement.class).sep("def").identifier(_reserved)
 			.ast(_paramList).ast(_block);
-	Parser _args = rule(Arguments.class).ast(_expression).repeat(
-			rule().sep(",").ast(_expression));
+	Parser _args = rule(Arguments.class).ast(_expr).repeat(
+			rule().sep(",").ast(_expr));
 	Parser _postfix = rule().sep("(").maybe(_args).sep(")");
 
 	public FuncParser() {

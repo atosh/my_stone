@@ -2,21 +2,21 @@ package stone.env;
 
 import java.util.HashMap;
 
-public class NestedEnvironment implements Environment {
+public class NestedEnv implements Env {
 
 	protected HashMap<String, Object> _values = new HashMap<String, Object>();;
-	protected Environment _outer;
+	protected Env _outer;
 
-	public NestedEnvironment() {
+	public NestedEnv() {
 		this(null);
 	}
 
-	public NestedEnvironment(Environment environment) {
-		_outer = environment;
+	public NestedEnv(Env env) {
+		_outer = env;
 	}
 
-	public void setOuter(Environment environment) {
-		_outer = environment;
+	public void setOuter(Env env) {
+		_outer = env;
 	}
 
 	public void putNew(String name, Object value) {
@@ -24,21 +24,21 @@ public class NestedEnvironment implements Environment {
 	}
 
 	public void put(String name, Object value) {
-		Environment environment = where(name);
-		if (environment == null) {
-			environment = this;
+		Env env = where(name);
+		if (env == null) {
+			env = this;
 		}
-		((NestedEnvironment) environment).putNew(name, value);
+		((NestedEnv) env).putNew(name, value);
 	}
 
-	public Environment where(String name) {
+	public Env where(String name) {
 		if (_values.get(name) != null) {
 			return this;
 		}
 		if (_outer == null) {
 			return null;
 		}
-		return ((NestedEnvironment) _outer).where(name);
+		return ((NestedEnv) _outer).where(name);
 	}
 
 	public Object get(String name) {

@@ -3,7 +3,7 @@ package stone.ast;
 import java.util.Iterator;
 import java.util.List;
 
-import stone.env.Environment;
+import stone.env.Env;
 import stone.lexer.StoneException;
 
 public class ASTList extends ASTNode {
@@ -53,7 +53,7 @@ public class ASTList extends ASTNode {
 	}
 
 	@Override
-	public Object evaluate(Environment environment) {
+	public Object evaluate(Env env) {
 		throw new StoneException("cannot eval: " + toString(), this);
 	}
 

@@ -2,7 +2,7 @@ package stone.ast;
 
 import java.util.List;
 
-import stone.env.Environment;
+import stone.env.Env;
 
 public class ParameterList extends ASTList {
 
@@ -18,8 +18,8 @@ public class ParameterList extends ASTList {
 		return numChildren();
 	}
 
-	public void evaluate(Environment environment, int index, Object value) {
-		environment.putNew(name(index), value);
+	public void evaluate(Env env, int index, Object value) {
+		env.putNew(name(index), value);
 	}
 
 }

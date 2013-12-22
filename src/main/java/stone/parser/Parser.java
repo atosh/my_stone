@@ -127,14 +127,14 @@ public class Parser {
 		return this;
 	}
 
-	public Parser expression(Parser parser, Operators operators) {
-		_elements.add(new Expression(null, parser, operators));
+	public Parser expr(Parser parser, Operators operators) {
+		_elements.add(new Expr(null, parser, operators));
 		return this;
 	}
 
-	public Parser expression(Class<? extends ASTNode> type, Parser parser,
+	public Parser expr(Class<? extends ASTNode> type, Parser parser,
 			Operators operators) {
-		_elements.add(new Expression(type, parser, operators));
+		_elements.add(new Expr(type, parser, operators));
 		return this;
 	}
 

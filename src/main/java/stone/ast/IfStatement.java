@@ -2,7 +2,7 @@ package stone.ast;
 
 import java.util.List;
 
-import stone.env.Environment;
+import stone.env.Env;
 
 public class IfStatement extends ASTList {
 
@@ -28,16 +28,16 @@ public class IfStatement extends ASTList {
 	}
 
 	@Override
-	public Object evaluate(Environment environment) {
-		Object cond = condition().evaluate(environment);
+	public Object evaluate(Env env) {
+		Object cond = condition().evaluate(env);
 		if (cond instanceof Boolean && ((Boolean) cond).booleanValue()) {
-			return thenBlock().evaluate(environment);
+			return thenBlock().evaluate(env);
 		}
 		ASTNode block = elseBlock();
 		if (block == null) {
 			return 0;
 		}
-		return block.evaluate(environment);
+		return block.evaluate(env);
 	}
 
 }

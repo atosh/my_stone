@@ -2,6 +2,9 @@ package stone.ast;
 
 import java.util.List;
 
+import stone.env.Env;
+import stone.parser.ClassInfo;
+
 public class ClassStatement extends ASTList {
 
 	public ClassStatement(List<ASTNode> children) {
@@ -30,4 +33,11 @@ public class ClassStatement extends ASTList {
 		}
 		return "(Class " + name() + " " + parent + " " + body() + ")";
 	}
+
+	public Object evaluate(Env env) {
+		ClassInfo info = new ClassInfo(this, env);
+		env.put(name(), info);
+		return name();
+	}
+
 }

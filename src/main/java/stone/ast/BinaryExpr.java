@@ -2,12 +2,14 @@ package stone.ast;
 
 import java.util.List;
 
-import stone.env.Environment;
+import stone.env.Env;
 import stone.lexer.StoneException;
+import stone.parser.StoneObject;
+import stone.parser.StoneObject.AccessException;
 
-public class BinaryExpression extends ASTList {
+public class BinaryExpr extends ASTList {
 
-	public BinaryExpression(List<ASTNode> children) {
+	public BinaryExpr(List<ASTNode> children) {
 		super(children);
 	}
 
@@ -24,24 +26,45 @@ public class BinaryExpression extends ASTList {
 	}
 
 	@Override
-	public Object evaluate(Environment environment) {
+	public Object evaluate(Env env) {
 		String op = operator();
 		if ("=".equals(op)) {
-			Object right = right().evaluate(environment);
-			return computeAssign(environment, right);
+			Object right = right().evaluate(env);
+			return computeAssign(env, right);
 		}
-		Object left = left().evaluate(environment);
-		Object right = right().evaluate(environment);
+		Object left = left().evaluate(env);
+		Object right = right().evaluate(env);
 		return computeOp(left, op, right);
 	}
 
-	protected Object computeAssign(Environment environment, Object right) {
+	protected Object computeAssign(Env env, Object right) {
 		ASTNode leftNode = left();
+		if (leftNode instanceof PrimaryExpr) {
+			PrimaryExpr expr = (PrimaryExpr) leftNode;
+			if (expr.hasPostfix(0) && expr.postfix(0) instanceof Dot) {
+				Object object = expr.evaluateSubExpr(env, 1);
+				if (object instanceof StoneObject) {
+					return setField((StoneObject) object,
+							(Dot) expr.postfix(0), right);
+				}
+			}
+		}
 		if (leftNode instanceof Name) {
-			environment.put(((Name) leftNode).name(), right);
+			env.put(((Name) leftNode).name(), right);
 			return right;
 		}
 		throw new StoneException("bad assignment", this);
+	}
+
+	protected Object setField(StoneObject object, Dot expr, Object right) {
+		String name = expr.name();
+		try {
+			object.write(name, right);
+			return right;
+		} catch (AccessException e) {
+			throw new StoneException("bad member access " + location() + ": "
+					+ name);
+		}
 	}
 
 	protected Object computeOp(Object left, String op, Object right) {

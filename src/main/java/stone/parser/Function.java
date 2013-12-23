@@ -2,16 +2,16 @@ package stone.parser;
 
 import stone.ast.BlockStatement;
 import stone.ast.ParameterList;
-import stone.env.Env;
+import stone.env.IEnv;
 import stone.env.NestedEnv;
 
 public class Function {
 	protected ParameterList _parameters;
 	protected BlockStatement _body;
-	protected Env _env;
+	protected IEnv _env;
 
 	public Function(ParameterList parameters, BlockStatement body,
-			Env env) {
+			IEnv env) {
 		_parameters = parameters;
 		_body = body;
 		_env = env;
@@ -25,7 +25,7 @@ public class Function {
 		return _body;
 	}
 
-	public Env makeEnv() {
+	public IEnv makeEnv() {
 		return new NestedEnv(_env);
 	}
 

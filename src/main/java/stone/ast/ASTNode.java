@@ -2,7 +2,7 @@ package stone.ast;
 
 import java.util.Iterator;
 
-import stone.env.Env;
+import stone.env.IEnv;
 
 public abstract class ASTNode implements Iterable<ASTNode> {
 
@@ -18,6 +18,6 @@ public abstract class ASTNode implements Iterable<ASTNode> {
 		return children();
 	}
 
-	public abstract Object evaluate(Env env);
+	public abstract Object evaluate(IEnv env);
 
 }

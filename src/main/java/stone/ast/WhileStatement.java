@@ -2,7 +2,7 @@ package stone.ast;
 
 import java.util.List;
 
-import stone.env.Env;
+import stone.env.IEnv;
 
 public class WhileStatement extends ASTList {
 
@@ -23,7 +23,7 @@ public class WhileStatement extends ASTList {
 	}
 
 	@Override
-	public Object evaluate(Env env) {
+	public Object evaluate(IEnv env) {
 		Object result = 0;
 		for (;;) {
 			Object cond = condition().evaluate(env);

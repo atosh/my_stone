@@ -2,7 +2,7 @@ package stone.ast;
 
 import java.util.List;
 
-import stone.env.Env;
+import stone.env.IEnv;
 import stone.parser.Function;
 
 public class Fun extends ASTList {
@@ -23,7 +23,7 @@ public class Fun extends ASTList {
 		return "(fun " + parameters() + " " + body() + ")";
 	}
 
-	public Object evaluate(Env env) {
+	public Object evaluate(IEnv env) {
 		return new Function(parameters(), body(), env);
 	}
 

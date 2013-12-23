@@ -3,7 +3,7 @@ package stone.ast;
 import java.util.List;
 
 import stone.ast.ASTList;
-import stone.env.Env;
+import stone.env.IEnv;
 
 public class PrimaryExpr extends ASTList {
 
@@ -20,11 +20,11 @@ public class PrimaryExpr extends ASTList {
 		return child(0);
 	}
 
-	public Object evaluate(Env env) {
+	public Object evaluate(IEnv env) {
 		return evaluateSubExpr(env, 0);
 	}
 
-	public Object evaluateSubExpr(Env env, int nest) {
+	public Object evaluateSubExpr(IEnv env, int nest) {
 		if (hasPostfix(nest)) {
 			Object target = evaluateSubExpr(env, nest + 1);
 			return postfix(nest).evaluate(env, target);

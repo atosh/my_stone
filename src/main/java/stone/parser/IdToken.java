@@ -5,7 +5,7 @@ import java.util.HashSet;
 import stone.ast.ASTLeaf;
 import stone.lexer.Token;
 
-public class IdToken extends AbstractToken {
+public class IdToken extends AToken {
 
 	private HashSet<String> _reserved;
 

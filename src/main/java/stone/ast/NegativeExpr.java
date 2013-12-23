@@ -2,7 +2,7 @@ package stone.ast;
 
 import java.util.List;
 
-import stone.env.Env;
+import stone.env.IEnv;
 import stone.lexer.StoneException;
 
 public class NegativeExpr extends ASTList {
@@ -20,7 +20,7 @@ public class NegativeExpr extends ASTList {
 	}
 
 	@Override
-	public Object evaluate(Env env) {
+	public Object evaluate(IEnv env) {
 		Object value = operand().evaluate(env);
 		if (value instanceof Integer) {
 			return new Integer(-((Integer) value).intValue());

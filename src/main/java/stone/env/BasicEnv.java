@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import stone.lexer.StoneException;
 
-public class BasicEnv implements Env {
+public class BasicEnv implements IEnv {
 
 	private HashMap<String, Object> _values = new HashMap<String, Object>();
 
@@ -24,12 +24,12 @@ public class BasicEnv implements Env {
 	}
 
 	@Override
-	public Env where(String name) {
+	public IEnv where(String name) {
 		throw new StoneException("invalid method.");
 	}
 
 	@Override
-	public void setOuter(Env env) {
+	public void setOuter(IEnv env) {
 		throw new StoneException("invalid method.");
 	}
 }

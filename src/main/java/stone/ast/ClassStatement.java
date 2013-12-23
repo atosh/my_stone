@@ -2,7 +2,7 @@ package stone.ast;
 
 import java.util.List;
 
-import stone.env.Env;
+import stone.env.IEnv;
 import stone.parser.ClassInfo;
 
 public class ClassStatement extends ASTList {
@@ -34,7 +34,7 @@ public class ClassStatement extends ASTList {
 		return "(Class " + name() + " " + parent + " " + body() + ")";
 	}
 
-	public Object evaluate(Env env) {
+	public Object evaluate(IEnv env) {
 		ClassInfo info = new ClassInfo(this, env);
 		env.put(name(), info);
 		return name();

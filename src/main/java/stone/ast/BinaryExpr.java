@@ -2,7 +2,7 @@ package stone.ast;
 
 import java.util.List;
 
-import stone.env.Env;
+import stone.env.IEnv;
 import stone.lexer.StoneException;
 import stone.parser.StoneObject;
 import stone.parser.StoneObject.AccessException;
@@ -26,7 +26,7 @@ public class BinaryExpr extends ASTList {
 	}
 
 	@Override
-	public Object evaluate(Env env) {
+	public Object evaluate(IEnv env) {
 		String op = operator();
 		if ("=".equals(op)) {
 			Object right = right().evaluate(env);
@@ -37,10 +37,22 @@ public class BinaryExpr extends ASTList {
 		return computeOp(left, op, right);
 	}
 
-	protected Object computeAssign(Env env, Object right) {
+	protected Object computeAssign(IEnv env, Object right) {
 		ASTNode leftNode = left();
 		if (leftNode instanceof PrimaryExpr) {
 			PrimaryExpr expr = (PrimaryExpr) leftNode;
+			if (expr.hasPostfix(0) && expr.postfix(0) instanceof ArrayRef) {
+				Object object = expr.evaluateSubExpr(env, 1);
+				if (object instanceof Object[]) {
+					ArrayRef ref = (ArrayRef) expr.postfix(0);
+					Object index = ref.index().evaluate(env);
+					if (index instanceof Integer) {
+						((Object[]) object)[(int) index] = right;
+						return right;
+					}
+				}
+				throw new StoneException("bad array access", this);
+			}
 			if (expr.hasPostfix(0) && expr.postfix(0) instanceof Dot) {
 				Object object = expr.evaluateSubExpr(env, 1);
 				if (object instanceof StoneObject) {

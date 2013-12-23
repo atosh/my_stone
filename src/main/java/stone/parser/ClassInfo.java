@@ -2,15 +2,15 @@ package stone.parser;
 
 import stone.ast.ClassBody;
 import stone.ast.ClassStatement;
-import stone.env.Env;
+import stone.env.IEnv;
 import stone.lexer.StoneException;
 
 public class ClassInfo {
 	protected ClassStatement _definition;
-	protected Env _env;
+	protected IEnv _env;
 	protected ClassInfo _superClass;
 
-	public ClassInfo(ClassStatement definition, Env env) {
+	public ClassInfo(ClassStatement definition, IEnv env) {
 		_definition = definition;
 		_env = env;
 		Object object = env.get(definition.superClass());
@@ -36,7 +36,7 @@ public class ClassInfo {
 		return _definition.body();
 	}
 
-	public Env env() {
+	public IEnv env() {
 		return _env;
 	}
 

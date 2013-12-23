@@ -9,7 +9,7 @@ import stone.lexer.Lexer;
 import stone.lexer.ParseException;
 import stone.lexer.Token;
 
-public class BasicParser {
+public class BasicParser implements IParser {
 
 	HashSet<String> _reserved = new HashSet<String>();
 	Operators _operators = new Operators();

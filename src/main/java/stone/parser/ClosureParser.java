@@ -1,7 +1,6 @@
 package stone.parser;
 
 import static stone.parser.Parser.rule;
-
 import stone.ast.Fun;
 
 public class ClosureParser extends FuncParser {

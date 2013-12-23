@@ -2,7 +2,7 @@ package stone.ast;
 
 import java.util.List;
 
-import stone.env.Env;
+import stone.env.IEnv;
 import stone.env.NestedEnv;
 import stone.lexer.StoneException;
 import stone.parser.ClassInfo;
@@ -24,7 +24,7 @@ public class Dot extends Postfix {
 	}
 
 	@Override
-	public Object evaluate(Env env, Object value) {
+	public Object evaluate(IEnv env, Object value) {
 		String member = name();
 		if (value instanceof ClassInfo) {
 			if ("new".equals(member)) {
@@ -44,7 +44,7 @@ public class Dot extends Postfix {
 		throw new StoneException("bad member access: " + member, this);
 	}
 
-	private void initObject(ClassInfo info, Env env) {
+	private void initObject(ClassInfo info, IEnv env) {
 		if (info.superClass() != null) {
 			initObject(info.superClass(), env);
 		}

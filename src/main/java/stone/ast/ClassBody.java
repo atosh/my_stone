@@ -2,7 +2,7 @@ package stone.ast;
 
 import java.util.List;
 
-import stone.env.Env;
+import stone.env.IEnv;
 
 public class ClassBody extends ASTList {
 
@@ -10,7 +10,7 @@ public class ClassBody extends ASTList {
 		super(children);
 	}
 
-	public Object evaluate(Env env) {
+	public Object evaluate(IEnv env) {
 		for (ASTNode node : this) {
 			node.evaluate(env);
 		}

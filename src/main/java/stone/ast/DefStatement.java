@@ -2,7 +2,7 @@ package stone.ast;
 
 import java.util.List;
 
-import stone.env.Env;
+import stone.env.IEnv;
 import stone.parser.Function;
 
 public class DefStatement extends ASTList {
@@ -27,7 +27,7 @@ public class DefStatement extends ASTList {
 		return "(def " + name() + " " + parameters() + " " + body() + ")";
 	}
 	
-	public Object evaluate(Env env) {
+	public Object evaluate(IEnv env) {
 		env.putNew(name(), new Function(parameters(), body(), env));
 		return name();
 	}

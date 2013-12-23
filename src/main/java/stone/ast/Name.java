@@ -3,7 +3,7 @@
  */
 package stone.ast;
 
-import stone.env.Env;
+import stone.env.IEnv;
 import stone.lexer.StoneException;
 import stone.lexer.Token;
 
@@ -24,7 +24,7 @@ public class Name extends ASTLeaf {
 	}
 
 	@Override
-	public Object evaluate(Env env) {
+	public Object evaluate(IEnv env) {
 		Object value = env.get(name());
 		if (value == null) {
 			throw new StoneException("undefined name: " + name(), this);

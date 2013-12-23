@@ -8,10 +8,10 @@ import stone.lexer.Lexer;
 import stone.lexer.ParseException;
 import stone.lexer.Token;
 
-public abstract class AbstractToken extends Element {
+public abstract class AToken extends Element {
 	private Factory _factory;
 
-	protected AbstractToken(Class<? extends ASTLeaf> type) {
+	protected AToken(Class<? extends ASTLeaf> type) {
 		if (type == null) {
 			type = ASTLeaf.class;
 		}

@@ -2,7 +2,7 @@ package stone.ast;
 
 import java.util.List;
 
-import stone.env.Env;
+import stone.env.IEnv;
 
 public abstract class Postfix extends ASTList {
 
@@ -10,6 +10,6 @@ public abstract class Postfix extends ASTList {
 		super(children);
 	}
 
-	public abstract Object evaluate(Env env, Object value);
+	public abstract Object evaluate(IEnv env, Object value);
 
 }

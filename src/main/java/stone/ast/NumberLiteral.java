@@ -1,6 +1,6 @@
 package stone.ast;
 
-import stone.env.Env;
+import stone.env.IEnv;
 import stone.lexer.Token;
 
 public class NumberLiteral extends ASTLeaf {
@@ -14,7 +14,7 @@ public class NumberLiteral extends ASTLeaf {
 	}
 
 	@Override
-	public Object evaluate(Env env) {
+	public Object evaluate(IEnv env) {
 		return value();
 	}
 

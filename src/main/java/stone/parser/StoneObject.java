@@ -1,13 +1,13 @@
 package stone.parser;
 
-import stone.env.Env;
+import stone.env.IEnv;
 
 public class StoneObject {
 
 	public static class AccessException extends Exception {}
-	private Env _env;
+	private IEnv _env;
 
-	public StoneObject(Env env) {
+	public StoneObject(IEnv env) {
 		_env = env;
 	}
 	
@@ -24,8 +24,8 @@ public class StoneObject {
 		getEnv(member).putNew(member, value);
 	}
 	
-	protected Env getEnv(String member) throws AccessException {
-		Env env = _env.where(member);
+	protected IEnv getEnv(String member) throws AccessException {
+		IEnv env = _env.where(member);
 		if (env != null && env == _env) {
 			return env;
 		}

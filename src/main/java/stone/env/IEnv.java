@@ -1,13 +1,13 @@
 package stone.env;
 
-public interface Env {
+public interface IEnv {
 	void put(String name, Object value);
 
 	Object get(String name);
 
 	public void putNew(String name, Object value);
 
-	public Env where(String name);
+	public IEnv where(String name);
 
-	void setOuter(Env env);
+	void setOuter(IEnv env);
 }

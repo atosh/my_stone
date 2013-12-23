@@ -2,7 +2,7 @@ package stone.ast;
 
 import java.util.List;
 
-import stone.env.Env;
+import stone.env.IEnv;
 
 public class IfStatement extends ASTList {
 
@@ -28,7 +28,7 @@ public class IfStatement extends ASTList {
 	}
 
 	@Override
-	public Object evaluate(Env env) {
+	public Object evaluate(IEnv env) {
 		Object cond = condition().evaluate(env);
 		if (cond instanceof Boolean && ((Boolean) cond).booleanValue()) {
 			return thenBlock().evaluate(env);

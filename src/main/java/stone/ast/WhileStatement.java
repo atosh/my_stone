@@ -5,7 +5,6 @@ import java.util.List;
 import stone.env.IEnv;
 
 public class WhileStatement extends ASTList {
-
 	public WhileStatement(List<ASTNode> children) {
 		super(children);
 	}

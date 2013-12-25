@@ -7,7 +7,6 @@ import stone.lexer.Lexer;
 import stone.lexer.ParseException;
 
 public class Tree extends Element {
-
 	private Parser _parser;
 
 	protected Tree(Parser parser) {
@@ -23,5 +22,4 @@ public class Tree extends Element {
 	protected boolean match(Lexer lexer) throws ParseException {
 		return _parser.match(lexer);
 	}
-
 }

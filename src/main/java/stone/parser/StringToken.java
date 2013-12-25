@@ -4,7 +4,6 @@ import stone.ast.ASTLeaf;
 import stone.lexer.Token;
 
 public class StringToken extends AToken {
-
 	protected StringToken(Class<? extends ASTLeaf> type) {
 		super(type);
 	}
@@ -13,5 +12,4 @@ public class StringToken extends AToken {
 	protected boolean test(Token token) {
 		return token.isString();
 	}
-
 }

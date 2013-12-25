@@ -5,7 +5,6 @@ import java.util.List;
 import stone.env.IEnv;
 
 public class BlockStatement extends ASTList {
-
 	public BlockStatement(List<ASTNode> children) {
 		super(children);
 	}
@@ -20,5 +19,4 @@ public class BlockStatement extends ASTList {
 		}
 		return result;
 	}
-
 }

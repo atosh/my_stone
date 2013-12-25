@@ -6,7 +6,6 @@ import stone.ast.ASTList;
 import stone.env.IEnv;
 
 public class PrimaryExpr extends ASTList {
-
 	public PrimaryExpr(List<ASTNode> children) {
 		super(children);
 	}

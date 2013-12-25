@@ -1,7 +1,6 @@
 package stone.lexer;
 
 public class IdToken extends Token {
-
 	private String _text;
 
 	public IdToken(int lineNumber, String id) {
@@ -18,5 +17,4 @@ public class IdToken extends Token {
 	public String getText() {
 		return _text;
 	}
-
 }

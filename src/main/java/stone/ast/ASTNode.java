@@ -3,9 +3,9 @@ package stone.ast;
 import java.util.Iterator;
 
 import stone.env.IEnv;
+import stone.env.Symbols;
 
 public abstract class ASTNode implements Iterable<ASTNode> {
-
 	public abstract ASTNode child(int i);
 
 	public abstract int numChildren();
@@ -20,4 +20,5 @@ public abstract class ASTNode implements Iterable<ASTNode> {
 
 	public abstract Object evaluate(IEnv env);
 
+	public void lookup(Symbols symbols) {}
 }

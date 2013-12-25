@@ -11,8 +11,10 @@ import stone.ast.NullStatement;
 import stone.env.BasicEnv;
 import stone.env.IEnv;
 import stone.env.NestedEnv;
+import stone.env.ResizableArrayEnv;
 import stone.lexer.Lexer;
 import stone.lexer.ParseException;
+import stone.lexer.StoneException;
 import stone.lexer.Token;
 import stone.parser.ArrayParser;
 import stone.parser.BasicParser;
@@ -22,7 +24,6 @@ import stone.parser.FuncParser;
 import stone.parser.IParser;
 
 public class StoneTest {
-
 	private Reader _reader = new InputStreamReader(System.in);
 
 	@Test
@@ -78,15 +79,25 @@ public class StoneTest {
 		interpret(parser, env);
 	}
 
-	private void interpret(IParser parser, IEnv env) throws ParseException {
-		Lexer lexer = new Lexer(_reader);
-		while (lexer.peek(0) != Token.kEOF) {
-			ASTNode node = parser.parse(lexer);
-			if (!(node instanceof NullStatement)) {
-				Object result = node.evaluate(env);
-				System.out.println("=> " + result);
-			}
-		}
+	@Test
+	public void testArrayEnvInterpreter() throws Exception {
+		IParser parser = new ArrayParser();
+		IEnv env = new ResizableArrayEnv();
+		interpret(parser, env);
 	}
 
+	private void interpret(IParser parser, IEnv env) throws ParseException {
+		try {
+			Lexer lexer = new Lexer(_reader);
+			while (lexer.peek(0) != Token.kEOF) {
+				ASTNode node = parser.parse(lexer);
+				if (!(node instanceof NullStatement)) {
+					Object result = node.evaluate(env);
+					System.out.println("=> " + result);
+				}
+			}
+		} catch(StoneException e) {
+			System.err.println(e.getMessage());
+		}
+	}
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import stone.env.IEnv;
 
 public class IfStatement extends ASTList {
-
 	public IfStatement(List<ASTNode> children) {
 		super(children);
 	}
@@ -39,5 +38,4 @@ public class IfStatement extends ASTList {
 		}
 		return block.evaluate(env);
 	}
-
 }

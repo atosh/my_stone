@@ -6,7 +6,6 @@ import stone.env.IEnv;
 import stone.lexer.StoneException;
 
 public class ArrayRef extends Postfix {
-
 	public ArrayRef(List<ASTNode> children) {
 		super(children);
 	}
@@ -29,5 +28,4 @@ public class ArrayRef extends Postfix {
 		}
 		throw new StoneException("bad array access.", this);
 	}
-
 }

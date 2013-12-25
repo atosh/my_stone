@@ -5,7 +5,6 @@ import java.util.HashMap;
 import stone.lexer.StoneException;
 
 public class BasicEnv implements IEnv {
-
 	private HashMap<String, Object> _values = new HashMap<String, Object>();
 
 	@Override

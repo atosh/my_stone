@@ -1,7 +1,6 @@
 package stone.lexer;
 
 public abstract class Token {
-
 	public static final Token kEOF = new Token(-1) {
 	}; // end of file
 
@@ -36,5 +35,4 @@ public abstract class Token {
 	public String getText() {
 		return "";
 	}
-
 }

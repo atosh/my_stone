@@ -6,7 +6,6 @@ import stone.ast.ASTLeaf;
 import stone.lexer.Token;
 
 public class IdToken extends AToken {
-
 	private HashSet<String> _reserved;
 
 	protected IdToken(Class<? extends ASTLeaf> type, HashSet<String> reserved) {
@@ -18,5 +17,4 @@ public class IdToken extends AToken {
 	protected boolean test(Token token) {
 		return token.isIdentifier() && !_reserved.contains(token.getText());
 	}
-
 }

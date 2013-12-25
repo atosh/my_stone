@@ -44,4 +44,5 @@ public class ClassInfo {
 	public String toString() {
 		return "<class " + name() + ">";
 	}
+
 }

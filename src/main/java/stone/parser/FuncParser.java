@@ -6,6 +6,7 @@ import stone.ast.DefStatement;
 import stone.ast.ParameterList;
 
 public class FuncParser extends BasicParser {
+
 	Parser _param = rule().identifier(_reserved);
 	Parser _params = rule(ParameterList.class).ast(_param).repeat(
 			rule().sep(",").ast(_param));
@@ -22,6 +23,5 @@ public class FuncParser extends BasicParser {
 		// _simple.option(_args);
 		_program.insertChoice(_def);
 	}
-
-
+	
 }

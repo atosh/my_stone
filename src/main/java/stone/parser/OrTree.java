@@ -7,6 +7,7 @@ import stone.lexer.Lexer;
 import stone.lexer.ParseException;
 
 public class OrTree extends Element {
+
 	private Parser[] _parsers;
 
 	protected OrTree(Parser[] parsers) {

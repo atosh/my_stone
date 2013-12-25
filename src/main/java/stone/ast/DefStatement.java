@@ -3,13 +3,9 @@ package stone.ast;
 import java.util.List;
 
 import stone.env.IEnv;
-import stone.env.IOptimizedEnv;
-import stone.env.Symbols;
-import stone.parser.OptFunction;
+import stone.parser.Function;
 
 public class DefStatement extends ASTList {
-	protected int index;
-	protected int size;
 
 	public DefStatement(List<ASTNode> children) {
 		super(children);
@@ -30,15 +26,9 @@ public class DefStatement extends ASTList {
 	public String toString() {
 		return "(def " + name() + " " + parameters() + " " + body() + ")";
 	}
-
+	
 	public Object evaluate(IEnv env) {
-		((IOptimizedEnv) env).put(0, index, new OptFunction(parameters(), body(),
-				env, size));
+		env.putNew(name(), new Function(parameters(), body(), env));
 		return name();
-	}
-
-	public void lookup(Symbols symbols) {
-		index = symbols.putNew(name());
-		size = Fun.lookup(symbols, parameters(), body());
 	}
 }

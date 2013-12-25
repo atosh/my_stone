@@ -4,6 +4,7 @@ import stone.env.IEnv;
 import stone.lexer.Token;
 
 public class StringLiteral extends ASTLeaf {
+
 	public StringLiteral(Token token) {
 		super(token);
 	}
@@ -16,4 +17,5 @@ public class StringLiteral extends ASTLeaf {
 	public Object evaluate(IEnv env) {
 		return value();
 	}
+
 }

@@ -7,6 +7,7 @@ import stone.lexer.StoneException;
 import stone.parser.Function;
 
 public class Arguments extends Postfix {
+
 	public Arguments(List<ASTNode> children) {
 		super(children);
 	}

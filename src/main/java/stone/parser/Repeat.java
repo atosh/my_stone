@@ -8,6 +8,7 @@ import stone.lexer.Lexer;
 import stone.lexer.ParseException;
 
 public class Repeat extends Element {
+
 	private Parser _parser;
 	private boolean _onlyOnce;
 
@@ -34,4 +35,5 @@ public class Repeat extends Element {
 	protected boolean match(Lexer lexer) throws ParseException {
 		return _parser.match(lexer);
 	}
+
 }

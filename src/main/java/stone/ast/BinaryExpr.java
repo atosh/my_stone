@@ -3,12 +3,12 @@ package stone.ast;
 import java.util.List;
 
 import stone.env.IEnv;
-import stone.env.Symbols;
 import stone.lexer.StoneException;
 import stone.parser.StoneObject;
 import stone.parser.StoneObject.AccessException;
 
 public class BinaryExpr extends ASTList {
+
 	public BinaryExpr(List<ASTNode> children) {
 		super(children);
 	}
@@ -23,19 +23,6 @@ public class BinaryExpr extends ASTList {
 
 	public ASTNode right() {
 		return child(2);
-	}
-	
-	public void lookup(Symbols symbols) {
-		ASTNode leftNode = left();
-		if ("=".equals(operator())) {
-			if (leftNode instanceof Name) {
-				((Name) leftNode).lookupForAssign(symbols);
-				right().lookup(symbols);
-				return;
-			}
-		}
-		leftNode.lookup(symbols);
-		right().lookup(symbols);
 	}
 
 	@Override
@@ -52,10 +39,6 @@ public class BinaryExpr extends ASTList {
 
 	protected Object computeAssign(IEnv env, Object right) {
 		ASTNode leftNode = left();
-		if (leftNode instanceof Name) {
-			((Name) leftNode).evalForAssign(env, right);
-			return right;
-		}
 		if (leftNode instanceof PrimaryExpr) {
 			PrimaryExpr expr = (PrimaryExpr) leftNode;
 			if (expr.hasPostfix(0) && expr.postfix(0) instanceof ArrayRef) {
@@ -133,4 +116,5 @@ public class BinaryExpr extends ASTList {
 		}
 		throw new StoneException("bad operator", this);
 	}
+
 }

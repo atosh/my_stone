@@ -4,10 +4,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import stone.env.IEnv;
-import stone.env.Symbols;
 import stone.lexer.StoneException;
 
 public class ASTList extends ASTNode {
+
 	protected List<ASTNode> _children;
 
 	public ASTList(List<ASTNode> children) {
@@ -57,9 +57,4 @@ public class ASTList extends ASTNode {
 		throw new StoneException("cannot eval: " + toString(), this);
 	}
 
-	public void lookup(Symbols symbols) {
-		for (ASTNode node : this) {
-			node.lookup(symbols);
-		}
-	}
 }

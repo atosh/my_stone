@@ -3,6 +3,7 @@ package stone.env;
 import java.util.HashMap;
 
 public class NestedEnv implements IEnv {
+
 	protected HashMap<String, Object> _values = new HashMap<String, Object>();;
 	protected IEnv _outer;
 
@@ -47,4 +48,5 @@ public class NestedEnv implements IEnv {
 		}
 		return value;
 	}
+
 }

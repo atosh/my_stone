@@ -4,6 +4,7 @@ import stone.ast.ASTLeaf;
 import stone.lexer.Token;
 
 public class NumberToken extends AToken {
+
 	protected NumberToken(Class<? extends ASTLeaf> type) {
 		super(type);
 	}
@@ -12,4 +13,5 @@ public class NumberToken extends AToken {
 	protected boolean test(Token token) {
 		return token.isNumber();
 	}
+
 }

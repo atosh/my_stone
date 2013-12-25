@@ -10,6 +10,7 @@ import stone.parser.StoneObject;
 import stone.parser.StoneObject.AccessException;
 
 public class Dot extends Postfix {
+
 	public Dot(List<ASTNode> children) {
 		super(children);
 	}
@@ -49,4 +50,5 @@ public class Dot extends Postfix {
 		}
 		info.body().evaluate(env);
 	}
+
 }

@@ -6,6 +6,7 @@ import stone.env.IEnv;
 import stone.parser.ClassInfo;
 
 public class ClassStatement extends ASTList {
+
 	public ClassStatement(List<ASTNode> children) {
 		super(children);
 	}
@@ -38,4 +39,5 @@ public class ClassStatement extends ASTList {
 		env.put(name(), info);
 		return name();
 	}
+
 }

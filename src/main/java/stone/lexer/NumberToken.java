@@ -1,6 +1,7 @@
 package stone.lexer;
 
 public class NumberToken extends Token {
+
 	private int _value;
 
 	public NumberToken(int lineNumber, int value) {

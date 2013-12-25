@@ -6,6 +6,7 @@ import stone.env.IEnv;
 import stone.lexer.StoneException;
 
 public class NegativeExpr extends ASTList {
+
 	public NegativeExpr(List<ASTNode> children) {
 		super(children);
 	}
@@ -26,4 +27,5 @@ public class NegativeExpr extends ASTList {
 		}
 		throw new StoneException("bad type for -", this);
 	}
+
 }
